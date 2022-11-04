@@ -7,8 +7,7 @@ const refs = {
 };
 
 refs.form.addEventListener('submit', onFormSumbit);
-refs.email.addEventListener('input', throttle(onEmailInput, 500));
-refs.message.addEventListener('input', throttle(onMessageInput, 500));
+refs.form.addEventListener('input', throttle(onInput, 500));
 
 const STORAGE_EMAIL_KEY = 'email';
 const STORAGE_MESSAGE_KEY = 'message';
@@ -23,15 +22,14 @@ function onFormSumbit(e) {
   localStorage.removeItem(STORAGE_MESSAGE_KEY);
 }
 
-function onEmailInput(e) {
-  localStorage.setItem(STORAGE_EMAIL_KEY, e.target.value);
+function onInput(e) {
+  if (e.target.name === 'email')
+    localStorage.setItem(STORAGE_EMAIL_KEY, e.target.value);
+  if (e.target.name === 'message')
+    localStorage.setItem(STORAGE_MESSAGE_KEY, e.target.value);
 }
 
-function onMessageInput(e) {
-  localStorage.setItem(STORAGE_MESSAGE_KEY, e.target.value);
-}
-
-function getLocalStorageItems() {
+function getLocalStorageItems(props) {
   if (localStorage.getItem(STORAGE_EMAIL_KEY)) {
     refs.email.value = localStorage.getItem(STORAGE_EMAIL_KEY);
   }
