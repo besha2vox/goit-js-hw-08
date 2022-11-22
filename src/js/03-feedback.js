@@ -30,8 +30,8 @@ function getLocalStorageItems() {
   const storageItem = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
   if (!storageItem) return;
-
   Object.keys(storageItem).forEach(key => {
+    formData[key] = storageItem[key];
     const element = refs.form.querySelector(`[name="${key}"]`);
     element.value = storageItem[key];
   });
